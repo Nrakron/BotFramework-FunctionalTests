@@ -81,7 +81,7 @@ stages:
         Registry: $[variables.RegistryUrlHost]
         BotBuilderPackageVersion: $[variables.BotBuilderPackageVersionHost]
         Parameters.sourceLocation: 'Bots/Python/Consumers/CodeFirst/SimpleHostBot'
-        TemplateLocation: 'Bots/Python/Consumers/CodeFirst/SimpleHostBot/deploymentTemplates/template-with-new-RGGG.json'
+        TemplateLocation: 'Bots/Python/Consumers/CodeFirst/SimpleHostBot/deploymentTemplates/template-with-new-RG.json'
       steps:
       - template: pythonSetConfigFileSteps.yml
       - template: pythonDeployStepsNewRG.yml

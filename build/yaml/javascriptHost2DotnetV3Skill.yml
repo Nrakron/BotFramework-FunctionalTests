@@ -69,7 +69,7 @@ stages:
         Registry: $[variables.RegistryUrlHost]
         BotBuilderPackageVersion: $[variables.BotBuilderPackageVersionHost]
         Parameters.sourceLocation: 'Bots/JavaScript/Consumers/CodeFirst/SimpleHostBot'
-        TemplateLocation: 'Bots/JavaScript/Consumers/CodeFirst/SimpleHostBot/deploymentTemplates/template-with-new-RGGG.json'
+        TemplateLocation: 'Bots/JavaScript/Consumers/CodeFirst/SimpleHostBot/deploymentTemplates/template-with-new-RG.json'
       steps:
       - template: javascriptSetConfigFileSteps.yml
       - template: javascriptDeploySteps.yml
@@ -83,7 +83,7 @@ stages:
         BotBuilderPackageVersion: $[variables.BotBuilderPackageVersionSkill]
         Parameters.solution: 'Bots/DotNet/Skills/CodeFirst/EchoSkillBot-v3/EchoSkillBot.sln'
         Parameters.sourceLocation: 'Bots/DotNet/Skills/CodeFirst/EchoSkillBot-v3/'
-        TemplateLocation: 'Bots/DotNet/Skills/CodeFirst/EchoSkillBot-v3/DeploymentTemplates/template-with-new-RGGG.json'
+        TemplateLocation: 'Bots/DotNet/Skills/CodeFirst/EchoSkillBot-v3/DeploymentTemplates/template-with-new-RG.json'
       steps:
       - template: dotnetV3DeploySteps.yml
 

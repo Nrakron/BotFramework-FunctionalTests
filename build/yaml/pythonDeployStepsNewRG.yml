@@ -1,5 +1,5 @@
 #
-# template-with-new-RGGG.json errors when run simultaneously in two deploys with 'Azure Error: DeploymentActive'.
+# template-with-new-RG.json errors when run simultaneously in two deploys with 'Azure Error: DeploymentActive'.
 #
 steps:
 - powershell: |

@@ -1,5 +1,5 @@
 #
-# Deploys using the template SkillsFunctionalTests/python/host/deploymentTemplates/template-with-preexisting-RGGG.json
+# Deploys using the template SkillsFunctionalTests/python/host/deploymentTemplates/template-with-preexisting-RG.json
 #
 steps:
 - powershell: |

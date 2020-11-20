@@ -79,7 +79,7 @@ stages:
         Registry: $[variables.RegistryUrlHost]
         BotBuilderPackageVersion: $[variables.BotBuilderPackageVersionHost]
         Parameters.sourceLocation: 'Bots/JavaScript/Consumers/CodeFirst/SimpleHostBot'
-        TemplateLocation: 'Bots/JavaScript/Consumers/CodeFirst/SimpleHostBot/deploymentTemplates/template-with-new-RGGG.json'
+        TemplateLocation: 'Bots/JavaScript/Consumers/CodeFirst/SimpleHostBot/deploymentTemplates/template-with-new-RG.json'
       steps:
       - template: javascriptSetConfigFileSteps.yml
       - template: javascriptDeploySteps.yml

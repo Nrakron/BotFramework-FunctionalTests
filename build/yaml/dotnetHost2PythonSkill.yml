@@ -95,9 +95,9 @@ stages:
         Registry: $[variables.RegistryUrlSkill]
         BotBuilderPackageVersion: $[variables.BotBuilderPackageVersionSkill]
         Parameters.sourceLocation: 'Bots/Python/Skills/CodeFirst/EchoSkillBot'
-        TemplateLocation: 'Bots/Python/Skills/CodeFirst/EchoSkillBot/deploymentTemplates/template-with-preexisting-RGGG.json'
-        # To use template-with-new-RGGG.json when Deploy_Host and Deploy_Skill run in parallel gets 'Azure Error: DeploymentActive'.
-        #TemplateLocation: 'Bots/Python/Skills/CodeFirst/EchoSkillBot/deploymentTemplates/template-with-new-RGGG.json'
+        TemplateLocation: 'Bots/Python/Skills/CodeFirst/EchoSkillBot/deploymentTemplates/template-with-preexisting-RG.json'
+        # To use template-with-new-RG.json when Deploy_Host and Deploy_Skill run in parallel gets 'Azure Error: DeploymentActive'.
+        #TemplateLocation: 'Bots/Python/Skills/CodeFirst/EchoSkillBot/deploymentTemplates/template-with-new-RG.json'
       steps:
       - template: pythonDeployStepsExistingRG.yml
       #- template: pythonDeployStepsNewRG.yml
