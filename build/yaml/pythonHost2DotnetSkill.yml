@@ -8,7 +8,7 @@ trigger: none
 pr: none
 
 variables:
-  BotGroup: '$(BotName)-RG'
+  BotGroup: '$(BotName)-RGGG'
   BuildConfiguration: 'Debug'
   BuildPlatform: 'any cpu'
   runCodesignValidationInjection: false
@@ -81,7 +81,7 @@ stages:
         Registry: $[variables.RegistryUrlHost]
         BotBuilderPackageVersion: $[variables.BotBuilderPackageVersionHost]
         Parameters.sourceLocation: 'Bots/Python/Consumers/CodeFirst/SimpleHostBot'
-        TemplateLocation: 'Bots/Python/Consumers/CodeFirst/SimpleHostBot/deploymentTemplates/template-with-new-rg.json'
+        TemplateLocation: 'Bots/Python/Consumers/CodeFirst/SimpleHostBot/deploymentTemplates/template-with-new-RGGG.json'
       steps:
       - template: pythonSetConfigFileSteps.yml
       - template: pythonDeployStepsNewRG.yml
@@ -107,8 +107,8 @@ stages:
           azureSubscription: $(AzureSubscription)
           scriptLocation: inlineScript
           inlineScript: |
-           call az bot show -g "$(PyDotNetSkillBotName)-RG" -n "$(PyDotNetSkillBotName)"
-           call az bot authsetting create -g "$(PyDotNetSkillBotName)-RG" -n "$(PyDotNetSkillBotName)" -c TestOAuthProvider --client-id "$(PyDotNetSkillAppId)" --client-secret '$(PyDotNetSkillAppSecret)'' --service "oauth2" --provider-scope-string '""' --parameters authorizationUrl=https://webjobs.botframework.com/api/testauthprovider/authorize tokenUrl=https://webjobs.botframework.com/api/testauthprovider/token refreshUrl=https://webjobs.botframework.com/api/testauthprovider/refresh clientId="$(PyDotNetSkillAppId)" clientSecret="$(PyDotNetSkillAppSecret)"
+           call az bot show -g "$(PyDotNetSkillBotName)-RGGG" -n "$(PyDotNetSkillBotName)"
+           call az bot authsetting create -g "$(PyDotNetSkillBotName)-RGGG" -n "$(PyDotNetSkillBotName)" -c TestOAuthProvider --client-id "$(PyDotNetSkillAppId)" --client-secret '$(PyDotNetSkillAppSecret)'' --service "oauth2" --provider-scope-string '""' --parameters authorizationUrl=https://webjobs.botframework.com/api/testauthprovider/authorize tokenUrl=https://webjobs.botframework.com/api/testauthprovider/token refreshUrl=https://webjobs.botframework.com/api/testauthprovider/refresh clientId="$(PyDotNetSkillAppId)" clientSecret="$(PyDotNetSkillAppSecret)"
         condition: always()
 
 - stage: Test
@@ -138,6 +138,6 @@ stages:
           azureSubscription: $(AzureSubscription)
           scriptLocation: inlineScript
           inlineScript: |
-           call az group delete -n "$(PyDotNetHostBotName)-RG" --yes
-           call az group delete -n "$(PyDotNetSkillBotName)-RG" --yes
+           call az group delete -n "$(PyDotNetHostBotName)-RGGG" --yes
+           call az group delete -n "$(PyDotNetSkillBotName)-RGGG" --yes
         condition: and(always(), ne(variables['DeleteResourceGroup'], 'false'))

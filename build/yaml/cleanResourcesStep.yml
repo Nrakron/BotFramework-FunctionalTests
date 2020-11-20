@@ -8,17 +8,17 @@ steps:
     inlineScript: |
      Write-Host "Looking for previously existing resources."
      $resourcesFound = 'false';
-     if ((az group exists -n "$(HostBotName)-RG") -eq 'true')
+     if ((az group exists -n "$(HostBotName)-RGGG") -eq 'true')
      {
-         Write-Host "Deleting previously existing Resource Group $(HostBotName)-RG."
-         az group delete -n "$(HostBotName)-RG" --yes
+         Write-Host "Deleting previously existing Resource Group $(HostBotName)-RGGG."
+         az group delete -n "$(HostBotName)-RGGG" --yes
          $resourcesFound = 'true';
      }
 
-     if ((az group exists -n "$(SkillBotName)-RG") -eq 'true')
+     if ((az group exists -n "$(SkillBotName)-RGGG") -eq 'true')
      {
-         Write-Host "Deleting previously existing Resource Group $(SkillBotName)-RG."
-         az group delete -n "$(SkillBotName)-RG" --yes
+         Write-Host "Deleting previously existing Resource Group $(SkillBotName)-RGGG."
+         az group delete -n "$(SkillBotName)-RGGG" --yes
          $resourcesFound = 'true';
      }
 

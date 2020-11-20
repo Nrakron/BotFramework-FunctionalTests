@@ -8,7 +8,7 @@ trigger: none
 pr: none
 
 variables:
-  BotGroup: '$(BotName)-RG'
+  BotGroup: '$(BotName)-RGGG'
   BuildConfiguration: 'Debug'
   BuildPlatform: 'any cpu'
   runCodesignValidationInjection: false
@@ -57,9 +57,9 @@ stages:
         Registry: $[variables.RegistryUrlHost]
         BotBuilderPackageVersion: $[variables.BotBuilderPackageVersionHost]
         Parameters.sourceLocation: 'Bots/Python/Consumers/CodeFirst/SimpleHostBot'
-        TemplateLocation: 'Bots/Python/Consumers/CodeFirst/SimpleHostBot/deploymentTemplates/template-with-preexisting-rg.json'
-        # Using template-with-new-rg.json when Deploy_Host and Deploy_Skill run in parallel gets 'Azure Error: DeploymentActive'.
-        #TemplateLocation: 'Bots/Python/Consumers/CodeFirst/SimpleHostBot/deploymentTemplates/template-with-new-rg.json'
+        TemplateLocation: 'Bots/Python/Consumers/CodeFirst/SimpleHostBot/deploymentTemplates/template-with-preexisting-RGGG.json'
+        # Using template-with-new-RGGG.json when Deploy_Host and Deploy_Skill run in parallel gets 'Azure Error: DeploymentActive'.
+        #TemplateLocation: 'Bots/Python/Consumers/CodeFirst/SimpleHostBot/deploymentTemplates/template-with-new-RGGG.json'
       steps:
       - template: pythonSetConfigFileSteps.yml
       - template: pythonDeployStepsExistingRG.yml
@@ -74,9 +74,9 @@ stages:
         Registry: $[variables.RegistryUrlSkill]
         BotBuilderPackageVersion: $[variables.BotBuilderPackageVersionSkill]
         Parameters.sourceLocation: 'Bots/Python/Skills/CodeFirst/EchoSkillBot'
-        TemplateLocation: 'Bots/Python/Skills/CodeFirst/EchoSkillBot/deploymentTemplates/template-with-preexisting-rg.json'
-        # Using template-with-new-rg.json when Deploy_Host and Deploy_Skill run in parallel gets 'Azure Error: DeploymentActive'.
-        #TemplateLocation: 'Bots/Python/Skills/CodeFirst/EchoSkillBot/deploymentTemplates/template-with-new-rg.json'
+        TemplateLocation: 'Bots/Python/Skills/CodeFirst/EchoSkillBot/deploymentTemplates/template-with-preexisting-RGGG.json'
+        # Using template-with-new-RGGG.json when Deploy_Host and Deploy_Skill run in parallel gets 'Azure Error: DeploymentActive'.
+        #TemplateLocation: 'Bots/Python/Skills/CodeFirst/EchoSkillBot/deploymentTemplates/template-with-new-RGGG.json'
       steps:
       - template: pythonDeployStepsExistingRG.yml
       #- template: pythonDeployStepsNewRG.yml
@@ -90,8 +90,8 @@ stages:
           azureSubscription: $(AzureSubscription)
           scriptLocation: inlineScript
           inlineScript: |
-           call az bot show -g "$(PyPySkillBotName)-RG" -n "$(PyPySkillBotName)"
-           call az bot authsetting create -g "$(PyPySkillBotName)-RG" -n "$(PyPySkillBotName)" -c TestOAuthProvider --client-id "$(PyPySkillAppId)" --client-secret '$(PyPySkillAppSecret)'' --service "oauth2" --provider-scope-string '""' --parameters authorizationUrl=https://webjobs.botframework.com/api/testauthprovider/authorize tokenUrl=https://webjobs.botframework.com/api/testauthprovider/token refreshUrl=https://webjobs.botframework.com/api/testauthprovider/refresh clientId="$(PyPySkillAppId)" clientSecret="$(PyPySkillAppSecret)"
+           call az bot show -g "$(PyPySkillBotName)-RGGG" -n "$(PyPySkillBotName)"
+           call az bot authsetting create -g "$(PyPySkillBotName)-RGGG" -n "$(PyPySkillBotName)" -c TestOAuthProvider --client-id "$(PyPySkillAppId)" --client-secret '$(PyPySkillAppSecret)'' --service "oauth2" --provider-scope-string '""' --parameters authorizationUrl=https://webjobs.botframework.com/api/testauthprovider/authorize tokenUrl=https://webjobs.botframework.com/api/testauthprovider/token refreshUrl=https://webjobs.botframework.com/api/testauthprovider/refresh clientId="$(PyPySkillAppId)" clientSecret="$(PyPySkillAppSecret)"
         condition: always()
 
 - stage: Test
@@ -121,5 +121,5 @@ stages:
           azureSubscription: $(AzureSubscription)
           scriptLocation: inlineScript
           inlineScript: |
-           call az group delete -n "$(PyPyHostBotName)-RG" --yes
-           call az group delete -n "$(PyPySkillBotName)-RG" --yes
+           call az group delete -n "$(PyPyHostBotName)-RGGG" --yes
+           call az group delete -n "$(PyPySkillBotName)-RGGG" --yes

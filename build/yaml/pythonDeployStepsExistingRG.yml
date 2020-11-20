@@ -1,5 +1,5 @@
 #
-# Deploys using the template SkillsFunctionalTests/python/host/deploymentTemplates/template-with-preexisting-rg.json
+# Deploys using the template SkillsFunctionalTests/python/host/deploymentTemplates/template-with-preexisting-RGGG.json
 #
 steps:
 - powershell: |
@@ -96,10 +96,10 @@ steps:
     scriptLocation: inlineScript
     inlineScript: |
      Set-PSDebug -Trace 1;
-     az group create --location westus --name $(BotGroup);
+     az group create --location westus2 --name $(BotGroup);
 
      # set up bot channels registration, app service, app service plan
-     az deployment group create --resource-group "$(BotGroup)" --name "$(BotName)$(Build.BuildId)" --template-file "$(System.DefaultWorkingDirectory)/$(TemplateLocation)" --parameters appId="$(DeployAppId)" appSecret="$(DeployAppSecret)" botId="$(BotName)" newWebAppName="$(BotName)-$(Build.BuildId)" newAppServicePlanName="$(BotName)" appServicePlanLocation="westus" --name "$(BotName)";
+     az deployment group create --resource-group "$(BotGroup)" --name "$(BotName)$(Build.BuildId)" --template-file "$(System.DefaultWorkingDirectory)/$(TemplateLocation)" --parameters appId="$(DeployAppId)" appSecret="$(DeployAppSecret)" botId="$(BotName)" newWebAppName="$(BotName)-$(Build.BuildId)" newAppServicePlanName="$(BotName)" appServicePlanLocation="westus2" --name "$(BotName)";
      Set-PSDebug -Trace 0;
 
 - script: |
@@ -121,7 +121,7 @@ steps:
     scriptLocation: inlineScript
     inlineScript: |
      #Getting logs from Azure
-     az webapp log download --name $(BotName)-$(Build.BuildId) --resource-group $(BotName)-rg --log-file "$(System.DefaultWorkingDirectory)\logs.zip";
+     az webapp log download --name $(BotName)-$(Build.BuildId) --resource-group $(BotName)-RGGG --log-file "$(System.DefaultWorkingDirectory)\logs.zip";
      Expand-Archive "$(System.DefaultWorkingDirectory)\logs.zip" -DestinationPath "$(System.DefaultWorkingDirectory)\logs";
      $file = "$(System.DefaultWorkingDirectory)/logs/deployments/*/log.log"
      $content = Get-Content $file

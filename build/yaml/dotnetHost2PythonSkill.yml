@@ -8,7 +8,7 @@ trigger: none
 pr: none
 
 variables:
-  BotGroup: '$(BotName)-RG'
+  BotGroup: '$(BotName)-RGGG'
   BuildConfiguration: 'Debug'
   BuildPlatform: 'any cpu'
   runCodesignValidationInjection: false
@@ -95,9 +95,9 @@ stages:
         Registry: $[variables.RegistryUrlSkill]
         BotBuilderPackageVersion: $[variables.BotBuilderPackageVersionSkill]
         Parameters.sourceLocation: 'Bots/Python/Skills/CodeFirst/EchoSkillBot'
-        TemplateLocation: 'Bots/Python/Skills/CodeFirst/EchoSkillBot/deploymentTemplates/template-with-preexisting-rg.json'
-        # To use template-with-new-rg.json when Deploy_Host and Deploy_Skill run in parallel gets 'Azure Error: DeploymentActive'.
-        #TemplateLocation: 'Bots/Python/Skills/CodeFirst/EchoSkillBot/deploymentTemplates/template-with-new-rg.json'
+        TemplateLocation: 'Bots/Python/Skills/CodeFirst/EchoSkillBot/deploymentTemplates/template-with-preexisting-RGGG.json'
+        # To use template-with-new-RGGG.json when Deploy_Host and Deploy_Skill run in parallel gets 'Azure Error: DeploymentActive'.
+        #TemplateLocation: 'Bots/Python/Skills/CodeFirst/EchoSkillBot/deploymentTemplates/template-with-new-RGGG.json'
       steps:
       - template: pythonDeployStepsExistingRG.yml
       #- template: pythonDeployStepsNewRG.yml
@@ -111,8 +111,8 @@ stages:
           azureSubscription: $(AzureSubscription)
           scriptLocation: inlineScript
           inlineScript: |
-           call az bot show -g "$(DotNetPySkillBotName)-RG" -n "$(DotNetPySkillBotName)"
-           call az bot authsetting create -g "$(DotNetPySkillBotName)-RG" -n "$(DotNetPySkillBotName)" -c TestOAuthProvider --client-id "$(DotNetPySkillAppId)" --client-secret '$(DotNetPySkillAppSecret)'' --service "oauth2" --provider-scope-string '""' --parameters authorizationUrl=https://webjobs.botframework.com/api/testauthprovider/authorize tokenUrl=https://webjobs.botframework.com/api/testauthprovider/token refreshUrl=https://webjobs.botframework.com/api/testauthprovider/refresh clientId="$(DotNetPySkillAppId)" clientSecret="$(DotNetPySkillAppSecret)"
+           call az bot show -g "$(DotNetPySkillBotName)-RGGG" -n "$(DotNetPySkillBotName)"
+           call az bot authsetting create -g "$(DotNetPySkillBotName)-RGGG" -n "$(DotNetPySkillBotName)" -c TestOAuthProvider --client-id "$(DotNetPySkillAppId)" --client-secret '$(DotNetPySkillAppSecret)'' --service "oauth2" --provider-scope-string '""' --parameters authorizationUrl=https://webjobs.botframework.com/api/testauthprovider/authorize tokenUrl=https://webjobs.botframework.com/api/testauthprovider/token refreshUrl=https://webjobs.botframework.com/api/testauthprovider/refresh clientId="$(DotNetPySkillAppId)" clientSecret="$(DotNetPySkillAppSecret)"
         condition: always()
 
 - stage: Test
@@ -142,6 +142,6 @@ stages:
           azureSubscription: $(AzureSubscription)
           scriptLocation: inlineScript
           inlineScript: |
-           call az group delete -n "$(DotNetPyHostBotName)-RG" --yes
-           call az group delete -n "$(DotNetPySkillBotName)-RG" --yes
+           call az group delete -n "$(DotNetPyHostBotName)-RGGG" --yes
+           call az group delete -n "$(DotNetPySkillBotName)-RGGG" --yes
         condition: and(always(), ne(variables['DeleteResourceGroup'], 'false'))

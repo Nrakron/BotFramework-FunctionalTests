@@ -8,7 +8,7 @@ trigger: none
 pr: none
 
 variables:
-  BotGroup: '$(BotName)-RG'
+  BotGroup: '$(BotName)-RGGG'
   BuildConfiguration: 'Debug'
   BuildPlatform: 'any cpu'
   runCodesignValidationInjection: false
@@ -92,7 +92,7 @@ stages:
         Registry: $[variables.RegistryUrlSkill]
         BotBuilderPackageVersion: $[variables.BotBuilderPackageVersionSkill]
         Parameters.sourceLocation: 'Bots/JavaScript/Skills/CodeFirst/EchoSkillBot'
-        TemplateLocation: 'Bots/JavaScript/Skills/CodeFirst/EchoSkillBot/DeploymentTemplates/template-with-new-rg.json'
+        TemplateLocation: 'Bots/JavaScript/Skills/CodeFirst/EchoSkillBot/DeploymentTemplates/template-with-new-RGGG.json'
       steps:
       - template: javascriptDeploySteps.yml
 
@@ -105,8 +105,8 @@ stages:
           azureSubscription: $(AzureSubscription)
           scriptLocation: inlineScript
           inlineScript: |
-           call az bot show -g "$(DotNetJsSkillBotName)-RG" -n "$(DotNetJsSkillBotName)"
-           call az bot authsetting create -g "$(DotNetJsSkillBotName)-RG" -n "$(DotNetJsSkillBotName)" -c TestOAuthProvider --client-id "$(DotNetJsSkillAppId)" --client-secret '$(DotNetJsSkillAppSecret)'' --service "oauth2" --provider-scope-string '""' --parameters authorizationUrl=https://webjobs.botframework.com/api/testauthprovider/authorize tokenUrl=https://webjobs.botframework.com/api/testauthprovider/token refreshUrl=https://webjobs.botframework.com/api/testauthprovider/refresh clientId="$(DotNetJsSkillAppId)" clientSecret="$(DotNetJsSkillAppSecret)"
+           call az bot show -g "$(DotNetJsSkillBotName)-RGGG" -n "$(DotNetJsSkillBotName)"
+           call az bot authsetting create -g "$(DotNetJsSkillBotName)-RGGG" -n "$(DotNetJsSkillBotName)" -c TestOAuthProvider --client-id "$(DotNetJsSkillAppId)" --client-secret '$(DotNetJsSkillAppSecret)'' --service "oauth2" --provider-scope-string '""' --parameters authorizationUrl=https://webjobs.botframework.com/api/testauthprovider/authorize tokenUrl=https://webjobs.botframework.com/api/testauthprovider/token refreshUrl=https://webjobs.botframework.com/api/testauthprovider/refresh clientId="$(DotNetJsSkillAppId)" clientSecret="$(DotNetJsSkillAppSecret)"
         condition: always()
 
 - stage: Test
@@ -136,5 +136,5 @@ stages:
           azureSubscription: $(AzureSubscription)
           scriptLocation: inlineScript
           inlineScript: |
-           call az group delete -n "$(DotNetJsHostBotName)-RG" --yes
-           call az group delete -n "$(DotNetJsSkillBotName)-RG" --yes
+           call az group delete -n "$(DotNetJsHostBotName)-RGGG" --yes
+           call az group delete -n "$(DotNetJsSkillBotName)-RGGG" --yes

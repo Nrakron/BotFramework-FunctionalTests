@@ -1,5 +1,5 @@
 #
-# template-with-new-rg.json errors when run simultaneously in two deploys with 'Azure Error: DeploymentActive'.
+# template-with-new-RGGG.json errors when run simultaneously in two deploys with 'Azure Error: DeploymentActive'.
 #
 steps:
 - powershell: |
@@ -97,7 +97,7 @@ steps:
     inlineScript: |
      Set-PSDebug -Trace 1;
      # set up resource group, bot channels registration, app service, app service plan
-     az deployment sub create --name "$(BotName)$(Build.BuildId)" --template-file "$(System.DefaultWorkingDirectory)/$(TemplateLocation)" --location "westus" --parameters appId="$(DeployAppId)" appSecret="$(DeployAppSecret)" botId="$(BotName)" botSku=F0 newAppServicePlanName="$(BotName)" newWebAppName="$(BotName)-$(Build.BuildId)" groupName="$(BotGroup)" groupLocation="westus" newAppServicePlanLocation="westus";
+     az deployment sub create --name "$(BotName)$(Build.BuildId)" --template-file "$(System.DefaultWorkingDirectory)/$(TemplateLocation)" --location "westus2" --parameters appId="$(DeployAppId)" appSecret="$(DeployAppSecret)" botId="$(BotName)" botSku=F0 newAppServicePlanName="$(BotName)" newWebAppName="$(BotName)-$(Build.BuildId)" groupName="$(BotGroup)" groupLocation="westus2" newAppServicePlanLocation="westus2";
      Set-PSDebug -Trace 0;
 
 - script: |
@@ -119,7 +119,7 @@ steps:
     scriptLocation: inlineScript
     inlineScript: |
      #Getting logs from Azure
-     az webapp log download --name $(BotName)-$(Build.BuildId) --resource-group $(BotName)-rg --log-file "$(System.DefaultWorkingDirectory)\logs.zip";
+     az webapp log download --name $(BotName)-$(Build.BuildId) --resource-group $(BotName)-RGGG --log-file "$(System.DefaultWorkingDirectory)\logs.zip";
      Expand-Archive "$(System.DefaultWorkingDirectory)\logs.zip" -DestinationPath "$(System.DefaultWorkingDirectory)\logs";
      $file = "$(System.DefaultWorkingDirectory)/logs/deployments/*/log.log"
      $content = Get-Content $file

@@ -6,13 +6,13 @@ steps:
      {
        $SolutionPath = "Bots/DotNet/Consumers/CodeFirst/SimpleHostBot/SimpleHostBot.sln"
        $ProjectPath = "Bots/DotNet/Consumers/CodeFirst/SimpleHostBot/SimpleHostBot.csproj"
-       $TemplatePath = "Bots/DotNet/Consumers/CodeFirst/SimpleHostBot/DeploymentTemplates/template-with-new-rg.json"
+       $TemplatePath = "Bots/DotNet/Consumers/CodeFirst/SimpleHostBot/DeploymentTemplates/template-with-new-RGGG.json"
      }
      if("$(NetCoreSdkVersionHost)".Trim() -eq "2.1")
      {
        $SolutionPath = "Bots/DotNet/Consumers/CodeFirst/SimpleHostBot-2.1/SimpleHostBot.sln"
        $ProjectPath = "Bots/DotNet/Consumers/CodeFirst/SimpleHostBot-2.1/SimpleHostBot-2.1.csproj"
-       $TemplatePath = "Bots/DotNet/Consumers/CodeFirst/SimpleHostBot-2.1/DeploymentTemplates/template-with-new-rg.json"
+       $TemplatePath = "Bots/DotNet/Consumers/CodeFirst/SimpleHostBot-2.1/DeploymentTemplates/template-with-new-RGGG.json"
      }
    }
    if("$(BotType)" -eq "EchoSkill")
@@ -21,13 +21,13 @@ steps:
      {
        $SolutionPath = "Bots/DotNet/Skills/CodeFirst/EchoSkillBot/EchoSkillBot.sln"
        $ProjectPath = "Bots/DotNet/Skills/CodeFirst/EchoSkillBot/EchoSkillBot.csproj"
-       $TemplatePath = "Bots/DotNet/Skills/CodeFirst/EchoSkillBot/DeploymentTemplates/template-with-new-rg.json"
+       $TemplatePath = "Bots/DotNet/Skills/CodeFirst/EchoSkillBot/DeploymentTemplates/template-with-new-RGGG.json"
      }
      if("$(NetCoreSdkVersionSkill)".Trim() -eq "2.1")
      {
        $SolutionPath = "Bots/DotNet/Skills/CodeFirst/EchoSkillBot-2.1/EchoSkillBot.sln"
        $ProjectPath = "Bots/DotNet/Skills/CodeFirst/EchoSkillBot-2.1/EchoSkillBot-2.1.csproj"
-       $TemplatePath = "Bots/DotNet/Skills/CodeFirst/EchoSkillBot-2.1/DeploymentTemplates/template-with-new-rg.json"
+       $TemplatePath = "Bots/DotNet/Skills/CodeFirst/EchoSkillBot-2.1/DeploymentTemplates/template-with-new-RGGG.json"
      }
    }
    Write-Host "##vso[task.setvariable variable=Parameters.solution;]$SolutionPath"

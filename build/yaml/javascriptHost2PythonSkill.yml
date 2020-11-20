@@ -8,7 +8,7 @@ trigger: none
 pr: none
 
 variables:
-  BotGroup: '$(BotName)-RG'
+  BotGroup: '$(BotName)-RGGG'
   BuildConfiguration: 'Debug'
   BuildPlatform: 'any cpu'
   runCodesignValidationInjection: false
@@ -57,7 +57,7 @@ stages:
         Registry: $[variables.RegistryUrlHost]
         BotBuilderPackageVersion: $[variables.BotBuilderPackageVersionHost]
         Parameters.sourceLocation: 'Bots/JavaScript/Consumers/CodeFirst/SimpleHostBot'
-        TemplateLocation: 'Bots/JavaScript/Consumers/CodeFirst/SimpleHostBot/deploymentTemplates/template-with-new-rg.json'
+        TemplateLocation: 'Bots/JavaScript/Consumers/CodeFirst/SimpleHostBot/deploymentTemplates/template-with-new-RGGG.json'
       steps:
       - template: javascriptSetConfigFileSteps.yml
       - template: javascriptDeploySteps.yml
@@ -70,7 +70,7 @@ stages:
         Registry: $[variables.RegistryUrlSkill]
         BotBuilderPackageVersion: $[variables.BotBuilderPackageVersionSkill]
         Parameters.sourceLocation: 'Bots/Python/Skills/CodeFirst/EchoSkillBot'
-        TemplateLocation: 'Bots/Python/Skills/CodeFirst/EchoSkillBot/deploymentTemplates/template-with-new-rg.json'
+        TemplateLocation: 'Bots/Python/Skills/CodeFirst/EchoSkillBot/deploymentTemplates/template-with-new-RGGG.json'
       steps:
       - template: pythonDeployStepsNewRG.yml
 
@@ -83,8 +83,8 @@ stages:
           azureSubscription: $(AzureSubscription)
           scriptLocation: inlineScript
           inlineScript: |
-           call az bot show -g "$(JsPySkillBotName)-RG" -n "$(JsPySkillBotName)"
-           call az bot authsetting create -g "$(JsPySkillBotName)-RG" -n "$(JsPySkillBotName)" -c TestOAuthProvider --client-id "$(JsPySkillAppId)" --client-secret '$(JsPySkillAppSecret)'' --service "oauth2" --provider-scope-string '""' --parameters authorizationUrl=https://webjobs.botframework.com/api/testauthprovider/authorize tokenUrl=https://webjobs.botframework.com/api/testauthprovider/token refreshUrl=https://webjobs.botframework.com/api/testauthprovider/refresh clientId="$(JsPySkillAppId)" clientSecret="$(JsPySkillAppSecret)"
+           call az bot show -g "$(JsPySkillBotName)-RGGG" -n "$(JsPySkillBotName)"
+           call az bot authsetting create -g "$(JsPySkillBotName)-RGGG" -n "$(JsPySkillBotName)" -c TestOAuthProvider --client-id "$(JsPySkillAppId)" --client-secret '$(JsPySkillAppSecret)'' --service "oauth2" --provider-scope-string '""' --parameters authorizationUrl=https://webjobs.botframework.com/api/testauthprovider/authorize tokenUrl=https://webjobs.botframework.com/api/testauthprovider/token refreshUrl=https://webjobs.botframework.com/api/testauthprovider/refresh clientId="$(JsPySkillAppId)" clientSecret="$(JsPySkillAppSecret)"
         condition: always()
 
 - stage: Test
@@ -114,6 +114,6 @@ stages:
           azureSubscription: $(AzureSubscription)
           scriptLocation: inlineScript
           inlineScript: |
-           call az group delete -n "$(JsPyHostBotName)-RG" --yes
-           call az group delete -n "$(JsPySkillBotName)-RG" --yes
+           call az group delete -n "$(JsPyHostBotName)-RGGG" --yes
+           call az group delete -n "$(JsPySkillBotName)-RGGG" --yes
         condition: and(always(), ne(variables['DeleteResourceGroup'], 'false'))

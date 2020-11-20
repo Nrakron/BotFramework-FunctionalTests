@@ -8,7 +8,7 @@ trigger: none
 pr: none
 
 variables:
-  BotGroup: '$(BotName)-RG'
+  BotGroup: '$(BotName)-RGGG'
   BuildConfiguration: 'Debug'
   BuildPlatform: 'any cpu'
   runCodesignValidationInjection: false
@@ -102,7 +102,7 @@ stages:
         BotBuilderPackageVersion: $[variables.BotBuilderPackageVersionSkill]
         Parameters.solution: 'Bots/DotNet/Skills/CodeFirst/EchoSkillBot-v3/EchoSkillBot.sln'
         Parameters.sourceLocation: 'Bots/DotNet/Skills/CodeFirst/EchoSkillBot-v3/'
-        TemplateLocation: 'Bots/DotNet/Skills/CodeFirst/EchoSkillBot-v3/DeploymentTemplates/template-with-new-rg.json'
+        TemplateLocation: 'Bots/DotNet/Skills/CodeFirst/EchoSkillBot-v3/DeploymentTemplates/template-with-new-RGGG.json'
       steps:
       - template: dotnetV3DeploySteps.yml
 
@@ -133,5 +133,5 @@ stages:
           azureSubscription: $(AzureSubscription)
           scriptLocation: inlineScript
           inlineScript: |
-           call az group delete -n "$(DotNetDotNetV3HostBotName)-RG" --yes
-           call az group delete -n "$(DotNetDotNetV3SkillBotName)-RG" --yes
+           call az group delete -n "$(DotNetDotNetV3HostBotName)-RGGG" --yes
+           call az group delete -n "$(DotNetDotNetV3SkillBotName)-RGGG" --yes
