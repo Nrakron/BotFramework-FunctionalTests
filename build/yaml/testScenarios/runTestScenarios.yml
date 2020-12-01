@@ -1,0 +1,55 @@
+#
+# Executes the test scenarios.
+#
+
+# "name" here defines the build number format. Build number is accessed via $(Build.BuildNumber)
+name: $(Build.BuildId)
+trigger: none
+pr: none
+
+variables:
+  BuildConfiguration: 'Debug'
+  BuildPlatform: 'any cpu'
+  # AzureSubscription: define in Azure
+  # BffnEchoSkillBotDotnetAppId: define in Azure
+  # BffnEchoSkillBot21DotnetAppId: define in Azure
+  # BffnEchoSkillBotV3DotnetAppId: define in Azure
+
+pool:
+  vmImage: 'windows-2019'
+
+stages:
+- template: runScenarioStage.yml
+  parameters:
+    testScenarios:
+      - name: SimpleHostBotDotnet_EchoSkillBotDotnet
+        hostBotName: bffnsimplehostbotdotnet
+        skillBotName: bffnechoskillbotdotnet
+        skillAppId: $(BffnEchoSkillBotDotnetAppId)
+
+      - name: SimpleHostBotDotnet_EchoSkillBot21Dotnet
+        hostBotName: bffnsimplehostbotdotnet
+        skillBotName: bffnechoskillbot21dotnet
+        skillAppId: $(BffnEchoSkillBot21DotnetAppId)
+
+      - name: SimpleHostBotDotnet_EchoSkillBotV3Dotnet
+        hostBotName: bffnsimplehostbotdotnet
+        skillBotName: bffnechoskillbotv3dotnet
+        skillAppId: $(BffnEchoSkillBotV3DotnetAppId)
+        testFilter: '&TestCategory!=SkipForV3Bots'
+
+      - name: SimpleHostBot21Dotnet_EchoSkillBotDotnet
+        hostBotName: bffnsimplehostbot21dotnet
+        skillBotName: bffnechoskillbotdotnet
+        skillAppId: $(BffnEchoSkillBotDotnetAppId)
+
+      - name: SimpleHostBot21Dotnet_EchoSkillBot21Dotnet
+        hostBotName: bffnsimplehostbot21dotnet
+        skillBotName: bffnechoskillbot21dotnet
+        skillAppId: $(BffnEchoSkillBot21DotnetAppId)
+
+      - name: SimpleHostBot21Dotnet_EchoSkillBotV3Dotnet
+        hostBotName: bffnsimplehostbot21dotnet
+        skillBotName: bffnechoskillbotv3dotnet
+        skillAppId: $(BffnEchoSkillBotV3DotnetAppId)
+        testFilter: '&TestCategory!=SkipForV3Bots'

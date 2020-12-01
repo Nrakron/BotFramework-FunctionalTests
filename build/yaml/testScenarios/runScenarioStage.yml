@@ -1,0 +1,28 @@
+parameters:
+  testScenarios: []
+
+stages:
+- ${{ each scenario in parameters.testScenarios }}:
+  - stage: ${{ scenario.name }}
+    jobs:
+      - job: Configure
+        steps:
+          - task: AzureCLI@2
+            displayName: 'Configure Host Bots Settings'
+            inputs:
+              azureSubscription: $(AzureSubscription)
+              scriptType: ps
+              scriptLocation: inlineScript
+              inlineScript: |
+                az webapp config appsettings set -g ${{ scenario.hostBotName }}-RG -n ${{ scenario.hostBotName }} --settings BotFrameworkSkills:0:AppId=${{ scenario.skillAppId }} BotFrameworkSkills:0:SkillEndpoint=https://${{ scenario.skillBotName }}.azurewebsites.net/api/messages SkillHostEndpoint=https://${{ scenario.hostBotName }}.azurewebsites.net/api/skills
+      - job: Test
+        dependsOn: Configure
+        variables:
+          HostBotName: ${{ scenario.hostBotName }}
+          Parameters.project: 'Tests/SkillFunctionalTests/SkillFunctionalTests.csproj'
+          Parameters.solution: 'SkillFunctionalTests.sln'
+          DefaultTestFilter: ''
+          FilterParam: ${{ scenario.testFilter }}
+          TestFilter: $[ coalesce( variables['FilterParam'], variables['DefaultTestFilter'] ) ]
+        steps:
+        - template: functionalTestSteps.yml
