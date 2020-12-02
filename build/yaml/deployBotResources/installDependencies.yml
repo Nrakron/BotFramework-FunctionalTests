@@ -1,0 +1,29 @@
+parameters:
+  version: ''
+  source: ''
+  botType: ''
+  project: {}
+
+steps:
+# Dotnet V4
+- ${{ if in(parameters.botType, 'Host', 'Skill') }}:
+  - template: dotnet/installDependencies.yml
+    parameters:
+      source: '${{ parameters.source }}'
+      version: '${{ parameters.version }}'
+      project: '${{ parameters.project }}'
+      packages:
+        Microsoft.Bot.Builder.Dialogs 
+        Microsoft.Bot.Builder.Integration.AspNet.Core
+
+# Dotnet V3
+- ${{ if eq(parameters.botType, 'SkillV3') }}:
+  - template: dotnet/installDependenciesV3.yml
+    parameters:
+      source: '${{ parameters.source }}'
+      version: '${{ parameters.version }}'
+      project: '${{ parameters.project }}'
+      packages:
+        Microsoft.Bot.Builder
+        Microsoft.Bot.Builder.Azure
+        Microsoft.Bot.Builder.History

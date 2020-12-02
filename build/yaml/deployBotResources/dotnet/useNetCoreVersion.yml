@@ -1,0 +1,10 @@
+parameters:
+  netCoreVersion: ''
+
+steps:
+- ${{ if ne(parameters.netCoreVersion, '') }}:
+  - task: UseDotNet@2
+    displayName: 'Use NetCore v${{ parameters.netCoreVersion }}'
+    inputs:
+      packageType: 'sdk'
+      version: ${{ parameters.netCoreVersion }}

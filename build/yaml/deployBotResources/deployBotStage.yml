@@ -1,0 +1,84 @@
+parameters:
+  dependsOn: ''
+  resourceGroup: ''
+  bots: []
+
+stages:
+- ${{ each bot in parameters.bots }}:
+  - stage: 'Deploy_${{ bot.name }}'
+    ${{ if eq(bot.displayName, '') }}:
+      displayName: '${{ bot.name }}'
+    ${{ if ne(bot.displayName, '') }}:
+      displayName: '${{ bot.displayName }}'
+    dependsOn: '${{ parameters.dependsOn }}'
+    jobs:
+      - job: 'Deploy'
+        displayName: 'Deploy steps'
+        steps:
+          # Use Net Core version.
+          - template: dotnet/useNetCoreVersion.yml
+            parameters:
+              netCoreVersion: '${{ bot.project.netCoreVersion }}'
+
+          # Use NuGet
+          - task: NuGetToolInstaller@1
+            displayName: 'Use NuGet'
+
+          - ${{ if eq(bot.type, 'SkillV3') }}:
+            # Run NuGet restore for SkillV3 only
+            - task: NuGetCommand@2
+              displayName: 'NuGet restore'
+              inputs:
+                restoreSolution: '${{ bot.project.directory }}/${{ bot.project.name }}'
+
+          # Set dependencies source and version.
+          - template: setDependenciesVariables.yml
+            parameters:
+              ${{ if eq(bot.type, 'Host') }}:
+                registry: "$env:DependenciesRegistryHosts"
+                version: "$env:DependeciesVersionHosts"
+              ${{ if eq(bot.type, 'Skill') }}:
+                registry: "$env:DependenciesRegistrySkills"
+                version: "$env:DependeciesVersionSkills"
+              ${{ if eq(bot.type, 'SkillV3') }}:
+                registry: "$env:DependenciesRegistrySkillsV3"
+                version: "$env:DependeciesVersionSkillsV3"
+              botType: '${{ bot.type }}'
+
+          # Install dependencies.
+          - template: installDependencies.yml
+            parameters:
+              source: "$(DependenciesSource)"
+              version: "$(DependenciesVersionNumber)"
+              botType: '${{ bot.type }}'
+              project: '${{ bot.project }}'
+
+          # Compile bot.
+          - template: build.yml
+            parameters:
+              botName: '${{ bot.name }}'
+              botType: '${{ bot.type }}'
+              project: '${{ bot.project }}'
+
+          # Create App Service and Bot Channel Registration.
+          - template: createAppService.yml
+            parameters:
+              appId: '${{ bot.appId }}'
+              appSecret: '${{ bot.appSecret }}'
+              botName: '${{ bot.name }}'
+              botGroup: '${{ parameters.resourceGroup }}'
+
+          - ${{ if eq(bot.type, 'Skill') }}:
+            # Configure OAuth.
+            - template: configureOAuth.yml
+              parameters:
+                appId: '${{ bot.appId }}'
+                appSecret: '${{ bot.appSecret }}'
+                botName: '${{ bot.name }}'
+                botGroup: '${{ parameters.resourceGroup }}'
+
+          # Deploy bot.
+          - template: deploy.yml
+            parameters:
+              botName: '${{ bot.name }}'
+              botGroup: '${{ parameters.resourceGroup }}'

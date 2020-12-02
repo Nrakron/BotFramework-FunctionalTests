@@ -1,0 +1,31 @@
+parameters:
+  botName: ''
+  botType: ''
+  project: {}
+
+steps:
+# DotNet V4 Bots
+- ${{ if in(parameters.botType, 'Host', 'Skill') }}:
+  - task: DotNetCoreCLI@2
+    displayName: 'Build'
+    inputs:
+      command: publish
+      publishWebProjects: false
+      projects: '${{ parameters.project.directory }}/${{ parameters.project.name }}'
+      arguments: '--output $(System.DefaultWorkingDirectory)/build/${{ parameters.botName }}'
+      modifyOutputPath: false
+
+# DotNet V3 Bots
+- ${{ if eq(parameters.botType, 'SkillV3') }}:
+  - task: VSBuild@1
+    displayName: 'Build'
+    inputs:
+      solution: '${{ parameters.project.directory }}/${{ parameters.project.name }}'
+      vsVersion: 16.0
+      platform: '$(BuildPlatform)'
+      configuration: '$(BuildConfiguration)'
+
+  - powershell: |
+      Write-Host "Compressing project into bot.zip"
+      7z.exe a -tzip "$(System.DefaultWorkingDirectory)/build/${{ parameters.botName }}/${{ parameters.botName }}.zip" "$(System.DefaultWorkingDirectory)/${{ parameters.project.directory }}/*" -aoa
+    displayName: 'Zip'
