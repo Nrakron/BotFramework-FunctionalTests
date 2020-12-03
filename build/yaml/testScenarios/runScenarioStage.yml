@@ -14,7 +14,7 @@ stages:
               scriptType: ps
               scriptLocation: inlineScript
               inlineScript: |
-                az webapp config appsettings set -g ${{ scenario.hostBotName }}-RG -n ${{ scenario.hostBotName }} --settings BotFrameworkSkills:0:AppId=${{ scenario.skillAppId }} BotFrameworkSkills:0:SkillEndpoint=https://${{ scenario.skillBotName }}.azurewebsites.net/api/messages SkillHostEndpoint=https://${{ scenario.hostBotName }}.azurewebsites.net/api/skills
+                az webapp config appsettings set -g "${{ scenario.resourceGroup }}" -n ${{ scenario.hostBotName }} --settings BotFrameworkSkills:0:AppId=${{ scenario.skillAppId }} BotFrameworkSkills:0:SkillEndpoint=https://${{ scenario.skillBotName }}.azurewebsites.net/api/messages SkillHostEndpoint=https://${{ scenario.hostBotName }}.azurewebsites.net/api/skills
       - job: Test
         dependsOn: Configure
         variables:
@@ -25,4 +25,6 @@ stages:
           FilterParam: ${{ scenario.testFilter }}
           TestFilter: $[ coalesce( variables['FilterParam'], variables['DefaultTestFilter'] ) ]
         steps:
-        - template: functionalTestSteps.yml
+        - template: functionalTestSteps.yml          
+          parameters:
+            resourceGroup: ${{ scenario.resourceGroup }}

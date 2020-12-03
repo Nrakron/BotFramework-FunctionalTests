@@ -14,6 +14,7 @@ variables:
   # BffnEchoSkillBotDotnetAppId: define in Azure
   # BffnEchoSkillBot21DotnetAppId: define in Azure
   # BffnEchoSkillBotV3DotnetAppId: define in Azure
+  # ResourceGroup: define in Azure
 
 pool:
   vmImage: 'windows-2019'
@@ -26,30 +27,36 @@ stages:
         hostBotName: bffnsimplehostbotdotnet
         skillBotName: bffnechoskillbotdotnet
         skillAppId: $(BffnEchoSkillBotDotnetAppId)
+        resourceGroup: "$(ResourceGroup)-DotNet"
 
       - name: SimpleHostBotDotnet_EchoSkillBot21Dotnet
         hostBotName: bffnsimplehostbotdotnet
         skillBotName: bffnechoskillbot21dotnet
         skillAppId: $(BffnEchoSkillBot21DotnetAppId)
+        resourceGroup: "$(ResourceGroup)-DotNet"
 
       - name: SimpleHostBotDotnet_EchoSkillBotV3Dotnet
         hostBotName: bffnsimplehostbotdotnet
         skillBotName: bffnechoskillbotv3dotnet
         skillAppId: $(BffnEchoSkillBotV3DotnetAppId)
         testFilter: '&TestCategory!=SkipForV3Bots'
+        resourceGroup: "$(ResourceGroup)-DotNet"
 
       - name: SimpleHostBot21Dotnet_EchoSkillBotDotnet
         hostBotName: bffnsimplehostbot21dotnet
         skillBotName: bffnechoskillbotdotnet
         skillAppId: $(BffnEchoSkillBotDotnetAppId)
+        resourceGroup: "$(ResourceGroup)-DotNet"
 
       - name: SimpleHostBot21Dotnet_EchoSkillBot21Dotnet
         hostBotName: bffnsimplehostbot21dotnet
         skillBotName: bffnechoskillbot21dotnet
         skillAppId: $(BffnEchoSkillBot21DotnetAppId)
+        resourceGroup: "$(ResourceGroup)-DotNet"
 
       - name: SimpleHostBot21Dotnet_EchoSkillBotV3Dotnet
         hostBotName: bffnsimplehostbot21dotnet
         skillBotName: bffnechoskillbotv3dotnet
         skillAppId: $(BffnEchoSkillBotV3DotnetAppId)
         testFilter: '&TestCategory!=SkipForV3Bots'
+        resourceGroup: "$(ResourceGroup)-DotNet"
